@@ -6,7 +6,7 @@ set -eo pipefail
 if [[ -n "$INFLUXDBURL" ]]; then
 
   #shellcheck disable=SC2016
-  telegraf \
+  GODEBUG=http2client=0 telegraf \
     --config /etc/telegraf/telegraf.conf \
     --config-directory /etc/telegraf/telegraf.d \
     2>&1 | stdbuf -o0 awk '{print "[telegraf] " $0}'
